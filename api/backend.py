@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 lower_entities= ["hasstate", "ison", "isin", "devicename", "statevalue"]
 upper_entities= ["hasState", "isOn", "isIn", "deviceName", "stateValue"]
-translator = tf.saved_model.load('../saved_model/translator/')
+translator = tf.saved_model.load('../text-to-CDQL/saved_model/translator')
 url = "http://206.12.91.26:8070/CASM-2.0.1/api/query"
 headers = {'Content-Type': 'text/plain'}
 
@@ -28,7 +28,7 @@ def convert_text_to_cdql():
     input_text = tf.constant([data["text"]])
     result = translator.tf_translate(input_text)['text'][0].numpy().decode()
     query = decode_query(result)
-    return json.dumps({"cdql": query})
+    return json.dumps({"cdql": str(query)})
 
 
 @app.route('/convert_cdql_to_results', methods=['POST'])
