@@ -8,7 +8,8 @@ model_config = {
 
     "embedding_dim":256,
     "hidden_units": 1024,
-    "epoch":2,
+    "epoch":30,
     "model_name":"2",
-    "save_dir":"./saved_model/translator"
+    "save_dir":"./saved_model/translator",
+    "learning_rate": 0.0001
 }
