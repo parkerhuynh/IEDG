@@ -7,7 +7,7 @@ queries = []
 
 buildingenvironments = ['spare room', 'bedroom', 'bathroom', 'balcony', 'nursery', 'utility room', 'living room', 'lounge', 'family room', 'dining room',\
     'kitchen', 'garage', 'mud room', 'basement', 'games room', 'library', 'hall', 'shed', 'loft', 'attic', 'cellar', 'box room', 'landing', 'music room', \
-    'office', 'pantry', 'guest room', 'toilet', 'restroom']
+    'office', 'pantry', 'guest room', 'toilet', 'restroom', "study room"]
 devices = ['temperature', 'humidity', 'tv', 'clock', 'coffe maker', 'computer', 'dvd', 'radio', 'fan', 'printer', 'fridge', 'electrical  oven',\
     'microwave oven', 'heater', 'lamp', 'light', 'projector']
 
