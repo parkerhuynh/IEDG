@@ -41,16 +41,18 @@ function App() {
   }, [cdql])
 
   return (
-    <Container>
+    <div style = {{margin:"0px"}}>
       <div>
-        <img  src={'banner.png'} />
+        <img  src={'banner.png'} style={{width:"100%"}}/>
       </div>
       <div style={{ height: '100px' }}>
       </div>
-      <Row style = {{ border: "1px solid black"}}>
+      
+      <Row>
+        <Col xs="2"></Col>
         <Col xs="2">
           <Form>
-            <Form.Label style={{ height: '100px' }}>Transcript</Form.Label>
+            <Form.Label style={{ height: '100px', "font-size":"30px"}}>Transcript</Form.Label>
           </Form>
         </Col>
         <Col>
@@ -58,23 +60,27 @@ function App() {
             <Form.Label>{text}</Form.Label>
           </Form>
         </Col>
+        <Col xs="2"></Col>
       </Row>
-      <Row style = {{ border: "1px solid black"}}>
-      <Col xs="2">
-          <Form>
-            <Form.Label style={{ height: '100px' }}>CDQL query</Form.Label>
-          </Form>
-        </Col>
-        <Col>
-          <Form>
-            <Form.Label>{cdql}</Form.Label>
-          </Form>
-        </Col>
+      <Row>
+        <Col xs="2"></Col>
+        <Col xs="2">
+            <Form>
+              <Form.Label style={{ height: '100px', "font-size":"30px"}}>CDQL query</Form.Label>
+            </Form>
+          </Col>
+          <Col>
+            <Form>
+              <Form.Label>{cdql}</Form.Label>
+            </Form>
+          </Col>
+          <Col xs="2"></Col>
       </Row>
-      <Row style = {{ border: "1px solid black"}}>
-      <Col xs="2">
+      <Row>
+        <Col xs="2"></Col>
+        <Col xs="2">
           <Form>
-            <Form.Label style={{ height: '100px' }}>Results</Form.Label>
+            <Form.Label style={{ height: '100px', "font-size":"30px"}}>Results</Form.Label>
           </Form>
         </Col>
         <Col>
@@ -83,8 +89,9 @@ function App() {
           </Form>
         </Col>
       </Row>
+      <Col xs="2"></Col>
       
-    </Container>
+    </div>
   );
 }
 
