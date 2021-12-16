@@ -48,7 +48,7 @@ if __name__ == '__main__':
     opt = tf.keras.optimizers.Adam(learning_rate=model_config["learning_rate"])
     train_translator.compile(
         optimizer=opt,
-        loss=MaskedLoss(),
+        loss=MaskedLoss()
     )
 
     #Train model
@@ -56,8 +56,6 @@ if __name__ == '__main__':
     start_time = time.time()
     training_history = train_translator.fit(dataset, epochs=model_config["epoch"], callbacks=[batch_loss])
     training_time = time.time() - start_time
-
-
 
     #Save trainning history
     plot_history(training_history)
