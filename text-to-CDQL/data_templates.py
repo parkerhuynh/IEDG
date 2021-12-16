@@ -30,11 +30,19 @@ templates = [
         "query": 'pull (device.stateValue) define entity device is from smarthome where device.hasState.isOn = true and device.deviceName = "<A>" and device.isIn.buildingenvironment = "<B>"'
     },
     {
-        "text": "Give me <A> of the <B> level.",
+        "text": "Give me the <A> level in the <B>.",
         "query": 'pull (device.stateValue) define entity device is from smarthome where device.hasState.isOn = true and device.deviceName = "<A>" and device.isIn.buildingenvironment = "<B>"'
     },
     {
         "text": "in the <B>, What is the current <A> level.",
+        "query": 'pull (device.stateValue) define entity device is from smarthome where device.hasState.isOn = true and device.deviceName = "<A>" and device.isIn.buildingenvironment = "<B>"'        
+    },
+    {
+        "text": "A level in the <B>.",
+        "query": 'pull (device.stateValue) define entity device is from smarthome where device.hasState.isOn = true and device.deviceName = "<A>" and device.isIn.buildingenvironment = "<B>"'        
+    },
+    {
+        "text": "in the <B>, A level",
         "query": 'pull (device.stateValue) define entity device is from smarthome where device.hasState.isOn = true and device.deviceName = "<A>" and device.isIn.buildingenvironment = "<B>"'        
     }
 ]
