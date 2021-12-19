@@ -3,15 +3,17 @@ import tensorflow_text as tf_text
 import tensorflow as tf
 from config import data_config, model_config
 import pandas as pd
-from utils import tf_lower_and_split_punct
+from utils import tf_lower_and_split_punct, plot_wer
 from Attention_Model import  TrainTranslator, Translator, ShapeChecker
 from plot_keras_history import plot_history
 import matplotlib.pyplot as plt
 from loss import MaskedLoss
 from callback import BatchLogs
+from wer import WordErrorRate
 import time
 import datetime
 import json
+import os
 
 logtime = datetime.datetime.now()
 
@@ -20,10 +22,12 @@ if __name__ == '__main__':
     #Load data
     log = {}
     data = pd.read_csv(data_config["data_dir"])
-    buffer_size = len(data)
-    dataset = tf.data.Dataset.from_tensor_slices((data["text"], data["query"])).shuffle(buffer_size)
-    dataset = dataset.batch(data_config["batch_size"])
-    
+    training_set = data[:len(data)-500]
+    test_set = data[len(data)-500:]
+    buffer_size = len(training_set)
+
+    training_ds = tf.data.Dataset.from_tensor_slices((training_set["text"], training_set["query"])).shuffle(buffer_size)
+    training_ds = training_ds.batch(data_config["batch_size"])
 
     #Text processing
     input_text_processor = tf.keras.layers.TextVectorization(
@@ -51,15 +55,20 @@ if __name__ == '__main__':
         loss=MaskedLoss()
     )
 
+    #WER
+    test_wer = WordErrorRate(test_set, input_text_processor, output_text_processor)
+    train_wer = WordErrorRate(training_set, input_text_processor, output_text_processor)
+
     #Train model
     batch_loss = BatchLogs('batch_loss')
     start_time = time.time()
-    training_history = train_translator.fit(dataset, epochs=model_config["epoch"], callbacks=[batch_loss])
+    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[batch_loss, train_wer, test_wer])
     training_time = time.time() - start_time
 
     #Save trainning history
+    os.mkdir(model_config["save_dir"] + model_config["model_name"] + "/")
     plot_history(training_history)
-    plt.savefig(model_config["save_dir"] +model_config["model_name"]+ "/epochLosses")
+    plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/epochLosses")
     plt.show()
 
     plt.plot(batch_loss.logs)
@@ -67,6 +76,10 @@ if __name__ == '__main__':
     plt.ylabel('Batch loss')
     plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/batchLosses")
     plt.show()
+
+    plot_wer(train_wer.wer, test_wer.wer)
+    plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/wer")
+
     #save Translator
     translator = Translator(
         encoder=train_translator.encoder,
