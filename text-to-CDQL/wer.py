@@ -20,7 +20,7 @@ class WordErrorRate(tf.keras.callbacks.Callback):
             decoder=self.model.decoder,
             input_text_processor=self.input_text_processor,
             output_text_processor=self.output_text_processor)
-        if len(self.dataset) > 300:
+        if len(self.dataset) > data_config["test_sample"]:
             dataset = self.dataset.sample(frac=1)[:300]
             data_type = "Training"
         else:
@@ -31,12 +31,15 @@ class WordErrorRate(tf.keras.callbacks.Callback):
         predictions = []
         result = translator.tf_translate(inputs)['text']
         for i, tr in enumerate(result):
+            outputs[i] = outputs[i].lower()
             tr = tr.numpy().decode()
             predictions.append(tr)
         random_id = randrange(10)
         wer_score = wer(outputs, predictions)
         self.wer.append(wer_score)
-        print(f"{data_type} WER (Epoch {epoch}): {wer_score}")
-        print(f"Target: {outputs[random_id]}")
-        print(f"Prediction: {predictions[random_id]}")
+        print()
+        print(f"{data_type} WER (Epoch {epoch + 1}): {wer_score}")
+        if data_type == "Test":
+            print(f"Target: {outputs[random_id]}")
+            print(f"Prediction: {predictions[random_id]}")
         return self.wer

@@ -22,8 +22,8 @@ if __name__ == '__main__':
     #Load data
     log = {}
     data = pd.read_csv(data_config["data_dir"])
-    training_set = data[:len(data)-config["test_sample"]]
-    test_set = data[len(data)-config["test_sample"]:]
+    training_set = data[:len(data)-data_config["test_sample"]]
+    test_set = data[len(data)-data_config["test_sample"]:]
     buffer_size = len(training_set)
 
     training_ds = tf.data.Dataset.from_tensor_slices((training_set["text"], training_set["query"])).shuffle(buffer_size)
