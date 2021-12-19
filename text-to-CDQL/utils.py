@@ -1,5 +1,6 @@
 import tensorflow as tf
 import tensorflow_text as tf_text
+import matplotlib.pyplot as plt
 
 def tf_lower_and_split_punct(text):
     # Split accecented characters.
@@ -12,3 +13,14 @@ def tf_lower_and_split_punct(text):
 
     text = tf.strings.join(['[START]', text, '[END]'], separator=' ')
     return text
+
+def plot_wer(trainning_wers, test_wers):
+    x = range(len(trainning_wers))
+    y1 = trainning_wers
+    y2 = test_wers
+    plt.plot(x, y1, label = "Training")
+    plt.plot(x, y2, label = "Test")
+    plt.legend(["Training", "Test"])
+    plt.xticks(x)
+    plt.grid(axis='y')
+    plt.show()

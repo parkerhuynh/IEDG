@@ -1,30 +1,39 @@
-class CallbackEval(keras.callbacks.Callback):
+from Attention_Model import  Translator
+import tensorflow as tf
+import pandas as pd
+from jiwer import wer
+
+class WordErrorRate(tf.keras.callbacks.Callback):
     """Displays a batch of outputs after every epoch."""
 
-    def __init__(self, dataset):
+    def __init__(self, dataset, input_text_processor, output_text_processor):
         super().__init__()
         self.dataset = dataset
-        self.translator_fuction = self.translator_fuction 
+        self.wer  = []
+        self.input_text_processor = input_text_processor
+        self.output_text_processor = output_text_processor
 
     def on_epoch_end(self, epoch: int, logs=None):
-
-        predictions = []
-        targets = []
-        for batch in self.dataset:
-            X, y = batch
-            batch_predictions = model.predict(X)
-            batch_predictions = decode_batch_predictions(batch_predictions)
-            predictions.extend(batch_predictions)
-            for label in y:
-                label = (
-                    tf.strings.reduce_join(num_to_char(label)).numpy().decode("utf-8")
-                )
-                targets.append(label)
-        wer_score = wer(targets, predictions)
-        print("-" * 100)
-        print(f"Word Error Rate: {wer_score:.4f}")
-        print("-" * 100)
-        for i in np.random.randint(0, len(predictions), 2):
-            print(f"Target    : {targets[i]}")
-            print(f"Prediction: {predictions[i]}")
-            print("-" * 100)
+      translator = Translator(
+            encoder=self.model.encoder,
+            decoder=self.model.decoder,
+            input_text_processor=self.input_text_processor,
+            output_text_processor=self.output_text_processor)
+      if len(self.dataset) > 300:
+          dataset = self.dataset.sample(frac=1)[:300]
+          data_type = "Training"
+      else:
+          dataset = self.dataset
+          data_type = "Test"
+      inputs = tf.constant(dataset["text"])
+      outputs = list(dataset["query"])
+      predictions = []
+      result = translator.tf_translate(inputs)['text']
+      for i, tr in enumerate(result):
+          tr = tr.numpy().decode()
+          predictions.append(tr)
+      wer_score = wer(outputs, predictions)
+      self.wer.append(wer_score)
+      print()
+      print(f"{data_type} WER: {wer_score}")
+      return self.wer
