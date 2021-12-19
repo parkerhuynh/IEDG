@@ -23,4 +23,4 @@ def plot_wer(trainning_wers, test_wers):
     plt.legend(["Training", "Test"])
     plt.xticks(x)
     plt.grid(axis='y')
-    plt.show()
+    return plt
