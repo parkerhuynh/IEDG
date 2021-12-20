@@ -1,16 +1,16 @@
 from Attention_Model import  Translator
 import tensorflow as tf
 import pandas as pd
-from jiwer import wer
+from sklearn.metrics import accuracy_score
 from random import randrange
 from config import data_config
 
-class WordErrorRate(tf.keras.callbacks.Callback):
+class Accuracy(tf.keras.callbacks.Callback):
     """Displays a batch of outputs after every epoch."""
     def __init__(self, dataset, input_text_processor, output_text_processor):
         super().__init__()
         self.dataset = dataset
-        self.wer  = []
+        self.accuracy  = []
         self.input_text_processor = input_text_processor
         self.output_text_processor = output_text_processor
 
@@ -34,12 +34,12 @@ class WordErrorRate(tf.keras.callbacks.Callback):
             outputs[i] = outputs[i].lower()
             tr = tr.numpy().decode()
             predictions.append(tr)
-        random_id = randrange(10)
-        wer_score = wer(outputs, predictions)
-        self.wer.append(wer_score)
+        random_id = randrange(data_config["test_sample"])
+        _accuracy = accuracy_score(outputs, predictions)
+        self.accuracy.append(_accuracy)
         print()
-        print(f"{data_type} WER (Epoch {epoch + 1}): {wer_score}")
+        print(f"{data_type} Accuracy (Epoch {epoch + 1}): {_accuracy}")
         if data_type == "Test":
             print(f"Target: {outputs[random_id]}")
             print(f"Prediction: {predictions[random_id]}")
-        return self.wer
+        return self.accuracy

@@ -20,6 +20,21 @@ def plot_wer(trainning_wers, test_wers):
     y2 = test_wers
     plt.plot(x, y1, label = "Training")
     plt.plot(x, y2, label = "Test")
+    plt.title("Word Error Rate")
+    plt.legend(["Training", "Test"])
+    plt.xticks(x)
+    plt.grid(axis='y')
+    return plt
+
+def plot_accuracy(trainning_accuracies, test_accuracies):
+    x = range(len(trainning_accuracies))
+    y1 = trainning_accuracies
+    y2 = test_accuracies
+    plt.plot(x, y1, label = "Training")
+    plt.plot(x, y2, label = "Test")
+    plt.title("Accuracy")
+    plt.xlabel("Epoch")
+    plt.ylabel("Accuracy")
     plt.legend(["Training", "Test"])
     plt.xticks(x)
     plt.grid(axis='y')
