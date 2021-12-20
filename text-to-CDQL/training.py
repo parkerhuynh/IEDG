@@ -67,7 +67,7 @@ if __name__ == '__main__':
     #Train model
     batch_loss = BatchLogs('batch_loss')
     start_time = time.time()
-    training_history = train_translator.fit(training_ds.take(1), epochs=model_config["epoch"], callbacks=[batch_loss, train_accuracy, test_accuracy])
+    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[batch_loss, train_accuracy, test_accuracy])
     training_time = time.time() - start_time
 
     #Save trainning history
