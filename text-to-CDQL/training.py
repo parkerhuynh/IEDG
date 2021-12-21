@@ -63,7 +63,7 @@ if __name__ == '__main__':
     #Train model
     batch_loss = BatchLogs('batch_loss')
     start_time = time.time()
-    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[batch_loss, train_metrics, test_metrics])
+    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[train_metrics, test_metrics])
     training_time = time.time() - start_time
 
     #plot epochLosses
@@ -75,18 +75,12 @@ if __name__ == '__main__':
     plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/epochLosses")
     plt.show()
 
-    #plot batchLosses
-    plt.plot(batch_loss.logs)
-    plt.xlabel('Batch')
-    plt.title('Batch loss')
-    plt.ylabel('Batch loss')
-    plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/batchLosses")
-    plt.show()
-
+    #Plot WER
     plot_wer(train_metrics.wer, test_metrics.wer)
     plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/wer")
     plt.show()
 
+    #Plot accuracy
     plot_accuracy(train_metrics.accuracy, test_metrics.accuracy)
     plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/accuracy")
     plt.show()
