@@ -8,7 +8,6 @@ from Attention_Model import  TrainTranslator, Translator, ShapeChecker
 from plot_keras_history import plot_history
 import matplotlib.pyplot as plt
 from loss import MaskedLoss
-from callback import BatchLogs
 from metrics import Metrics
 import time
 import datetime
