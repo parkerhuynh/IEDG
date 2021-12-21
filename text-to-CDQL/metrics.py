@@ -27,7 +27,7 @@ class Metrics(tf.keras.callbacks.Callback):
             output_text_processor=self.output_text_processor)
         if len(self.dataset) > data_config["test_sample"]:
             dataset = self.dataset.sample(frac=1)[:data_config["test_sample"]]
-            data_type = "Training"
+            data_type = "Train"
         else:
             dataset = self.dataset
             data_type = "Test"
@@ -39,20 +39,20 @@ class Metrics(tf.keras.callbacks.Callback):
             outputs[i] = outputs[i].lower()
             tr = tr.numpy().decode()
             predictions.append(tr)
-        random_id = randrange(10)
+        random_id = randrange(data_config["test_sample"])
         #Compute WER
         wer_score = wer(outputs, predictions)
         self.wer.append(wer_score)
         
         #Compute WER
         acc = accuracy_score(outputs, predictions)
-        self.accuracy.append(wer_score)
+        self.accuracy.append(acc)
 
         #Print results
         print(f"{data_type} WER (Epoch {epoch + 1}): {wer_score}")
         print(f"{data_type} Accuracy (Epoch {epoch + 1}): {wer_score}")
-        print(f"Target {data_type}: {outputs[random_id]}")
-        print(f"Prediction {data_type}: {predictions[random_id]}")
+        print(f"Target ({data_type} set): {outputs[random_id]}")
+        print(f"Prediction ({data_type} set): {predictions[random_id]}")
         print()
         if data_type == "Test":
             print("*"*150)
