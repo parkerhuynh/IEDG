@@ -1,20 +1,25 @@
 from Attention_Model import  Translator
 import tensorflow as tf
 import pandas as pd
+import time
 from jiwer import wer
 from random import randrange
 from config import data_config
+from sklearn.metrics import accuracy_score
 
-class WordErrorRate(tf.keras.callbacks.Callback):
+class Metrics(tf.keras.callbacks.Callback):
     """Displays a batch of outputs after every epoch."""
     def __init__(self, dataset, input_text_processor, output_text_processor):
         super().__init__()
         self.dataset = dataset
         self.wer  = []
+        self.accuracy  = []
+        self.running_time  = 0
         self.input_text_processor = input_text_processor
         self.output_text_processor = output_text_processor
 
     def on_epoch_end(self, epoch: int, logs=None):
+        start_time = time.time()
         translator = Translator(
             encoder=self.model.encoder,
             decoder=self.model.decoder,
@@ -35,11 +40,20 @@ class WordErrorRate(tf.keras.callbacks.Callback):
             tr = tr.numpy().decode()
             predictions.append(tr)
         random_id = randrange(10)
+        #Compute WER
         wer_score = wer(outputs, predictions)
         self.wer.append(wer_score)
-        print()
+        
+        #Compute WER
+        acc = accuracy_score(outputs, predictions)
+        self.accuracy.append(wer_score)
+
+        #Print results
         print(f"{data_type} WER (Epoch {epoch + 1}): {wer_score}")
+        print(f"{data_type} Accuracy (Epoch {epoch + 1}): {wer_score}")
+        print(f"Target {data_type}: {outputs[random_id]}")
+        print(f"Prediction {data_type}: {predictions[random_id]}")
+        print()
         if data_type == "Test":
-            print(f"Target: {outputs[random_id]}")
-            print(f"Prediction: {predictions[random_id]}")
-        return self.wer
+            print("*"*150)
+        self.running_time += time.time() - start_time

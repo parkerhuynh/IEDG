@@ -9,8 +9,7 @@ from plot_keras_history import plot_history
 import matplotlib.pyplot as plt
 from loss import MaskedLoss
 from callback import BatchLogs
-from wer import WordErrorRate
-from accuracy import Accuracy
+from metrics import Metrics
 import time
 import datetime
 import json
@@ -23,6 +22,7 @@ if __name__ == '__main__':
     #Load data
     log = {}
     data = pd.read_csv(data_config["data_dir"])
+    data = data.sample(frac=1)
     training_set = data[:len(data)-data_config["test_sample"]]
     test_set = data[len(data)-data_config["test_sample"]:]
     buffer_size = len(training_set)
@@ -57,25 +57,25 @@ if __name__ == '__main__':
     )
 
     #WER
-    #test_wer = WordErrorRate(test_set, input_text_processor, output_text_processor)
-    #train_wer = WordErrorRate(training_set, input_text_processor, output_text_processor)
-    
-    #WER
-    test_accuracy = Accuracy(test_set, input_text_processor, output_text_processor)
-    train_accuracy = Accuracy(training_set, input_text_processor, output_text_processor)
+    test_metrics = Metrics(test_set, input_text_processor, output_text_processor)
+    train_metrics = Metrics(training_set, input_text_processor, output_text_processor)
 
     #Train model
     batch_loss = BatchLogs('batch_loss')
     start_time = time.time()
-    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[batch_loss, train_accuracy, test_accuracy])
+    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[batch_loss, train_metrics, test_metrics])
     training_time = time.time() - start_time
 
-    #Save trainning history
+    #plot epochLosses
     os.mkdir(model_config["save_dir"] + model_config["model_name"] + "/")
     plot_history(training_history)
+    plt.title('Epoch loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Epoch loss')
     plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/epochLosses")
     plt.show()
 
+    #plot batchLosses
     plt.plot(batch_loss.logs)
     plt.xlabel('Batch')
     plt.title('Batch loss')
@@ -83,11 +83,14 @@ if __name__ == '__main__':
     plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/batchLosses")
     plt.show()
 
-    #plot_wer(train_wer.wer, test_wer.wer)
-    #plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/wer")
+    plot_wer(train_metrics.wer, test_metrics.wer)
+    plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/wer")
+    plt.show()
 
-    plot_accuracy(train_accuracy.accuracy, test_accuracy.accuracy)
+    plot_accuracy(train_metrics.accuracy, test_metrics.accuracy)
     plt.savefig(model_config["save_dir"] + model_config["model_name"] + "/accuracy")
+    plt.show()
+    
 
     #save Translator
     translator = Translator(
@@ -96,6 +99,7 @@ if __name__ == '__main__':
         input_text_processor=input_text_processor,
         output_text_processor=output_text_processor,
     )
+    training_time = training_time - train_metrics.running_time
     log[str(logtime)] = {}
     log[str(logtime)]["data_config"] = data_config
     log[str(logtime)]["model_config"] = model_config
