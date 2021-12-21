@@ -49,8 +49,9 @@ class Metrics(tf.keras.callbacks.Callback):
         self.accuracy.append(acc)
 
         #Print results
+        print()
         print(f"{data_type} WER (Epoch {epoch + 1}): {wer_score}")
-        print(f"{data_type} Accuracy (Epoch {epoch + 1}): {wer_score}")
+        print(f"{data_type} Accuracy (Epoch {epoch + 1}): {acc}")
         print(f"Target ({data_type} set): {outputs[random_id]}")
         print(f"Prediction ({data_type} set): {predictions[random_id]}")
         print()
