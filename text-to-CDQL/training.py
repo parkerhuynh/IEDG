@@ -60,7 +60,6 @@ if __name__ == '__main__':
     train_metrics = Metrics(training_set, input_text_processor, output_text_processor)
 
     #Train model
-    batch_loss = BatchLogs('batch_loss')
     start_time = time.time()
     training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[train_metrics, test_metrics])
     training_time = time.time() - start_time
