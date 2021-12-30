@@ -60,13 +60,15 @@ After that, you run:
 
 `python api/backend.py`
 
+![Text-to-CDQL model](images/interface.png)
+
 ## References
 
-### Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation
+### Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation (2019)
 
-*https://www.mdpi.com/1424-8220/19/6/1478
+https://www.mdpi.com/1424-8220/19/6/1478\
 
-`
+```
 @article{Hassani2019ContextDA,
   title={Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation},
   author={Alireza Hassani and Alexey Medvedev and Pari Delir Haghighi and Sea Ling and Arkady B. Zaslavsky and Prem Prakash Jayaraman},
@@ -74,13 +76,13 @@ After that, you run:
   year={2019},
   volume={19}
 }
-`
+```
 
-### Neural Machine Translation by Jointly Learning to Align and Translate
+### Neural Machine Translation by Jointly Learning to Align and Translate (2016)
 
-*https://arxiv.org/abs/1409.0473
+https://arxiv.org/abs/1409.0473
 
-`
+```
 @misc{bahdanau2016neural,
       title={Neural Machine Translation by Jointly Learning to Align and Translate}, 
       author={Dzmitry Bahdanau and Kyunghyun Cho and Yoshua Bengio},
@@ -89,8 +91,8 @@ After that, you run:
       archivePrefix={arXiv},
       primaryClass={cs.CL}
 }
-`
+```
 
-## References
+## Contact
 * [parker.ngoc.huynh@gmail.com](parker.ngoc.huynh@gmail.com)
 * [https://www.linkedin.com/in/parkerhuynh/](https://www.linkedin.com/in/parkerhuynh/)
