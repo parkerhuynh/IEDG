@@ -40,6 +40,14 @@ The model is created based on the attetion encoder-decoder RNN artchitecture. Be
 
 You can also load the pre-trained model from [here](https://github.com/parkerhuynh/IEDG/tree/main/text-to-CDQL/saved_model/translator).
 
+## IoT Data Generator
+
+IoT-data-simulator is the tool which allows you to simulate IoT devices data with great flexibility. With this tool you won't need to code another new simulator for each IoT project. You can setup and use this tool at the following link:
+
+https://github.com/IBA-Group-IT/IoT-data-simulator
+
+You can load the data schema by the file named `smarthome.json` in the folder named `IoT Schema Data Simulation`.
+
 ### `npm start`
 
 Runs the app in the development mode.\
