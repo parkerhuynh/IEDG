@@ -64,8 +64,9 @@ After that, you run:
 
 ### Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation
 
-https://www.mdpi.com/1424-8220/19/6/1478
+https://www.mdpi.com/1424-8220/19/6/1478\
 
+```
 @article{Hassani2019ContextDA,
   title={Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation},
   author={Alireza Hassani and Alexey Medvedev and Pari Delir Haghighi and Sea Ling and Arkady B. Zaslavsky and Prem Prakash Jayaraman},
@@ -73,11 +74,13 @@ https://www.mdpi.com/1424-8220/19/6/1478
   year={2019},
   volume={19}
 }
+```
 
 ### Neural Machine Translation by Jointly Learning to Align and Translate
 
 https://arxiv.org/abs/1409.0473
 
+```
 @misc{bahdanau2016neural,
       title={Neural Machine Translation by Jointly Learning to Align and Translate}, 
       author={Dzmitry Bahdanau and Kyunghyun Cho and Yoshua Bengio},
@@ -86,7 +89,7 @@ https://arxiv.org/abs/1409.0473
       archivePrefix={arXiv},
       primaryClass={cs.CL}
 }
-
+```
 
 ## References
 * [parker.ngoc.huynh@gmail.com](parker.ngoc.huynh@gmail.com)
