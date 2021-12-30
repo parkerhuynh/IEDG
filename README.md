@@ -60,6 +60,8 @@ After that, you run:
 
 `python api/backend.py`
 
+![Text-to-CDQL model](images/interface.png)
+
 ## References
 
 ### Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation (2019)
@@ -91,6 +93,6 @@ https://arxiv.org/abs/1409.0473
 }
 ```
 
-## References
+## Contact
 * [parker.ngoc.huynh@gmail.com](parker.ngoc.huynh@gmail.com)
 * [https://www.linkedin.com/in/parkerhuynh/](https://www.linkedin.com/in/parkerhuynh/)
