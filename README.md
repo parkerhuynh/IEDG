@@ -22,7 +22,7 @@ https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 ## Build a text to CDQL
 
-The purpose of this section is to crate a text-to-CDQL system.
+The purpose of this section is to create a text-to-CDQL system.
  
 ### Data Generator
 
@@ -48,65 +48,49 @@ https://github.com/IBA-Group-IT/IoT-data-simulator
 
 You can load the data schema by the file named `smarthome.json` in the folder named `IoT Schema Data Simulation`.
 
-### `npm start`
+## User Interface
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This section aims to integrate the user interface:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+In the project directory, you can run:
 
-### `npm test`
+`npm start`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+After that, you run:
 
-### `npm run build`
+`python api/backend.py`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## References
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*https://www.mdpi.com/1424-8220/19/6/1478
 
-### `npm run eject`
+`
+@article{Hassani2019ContextDA,
+  title={Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation},
+  author={Alireza Hassani and Alexey Medvedev and Pari Delir Haghighi and Sea Ling and Arkady B. Zaslavsky and Prem Prakash Jayaraman},
+  journal={Sensors (Basel, Switzerland)},
+  year={2019},
+  volume={19}
+}
+`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Neural Machine Translation by Jointly Learning to Align and Translate
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+*https://arxiv.org/abs/1409.0473
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`
+@misc{bahdanau2016neural,
+      title={Neural Machine Translation by Jointly Learning to Align and Translate}, 
+      author={Dzmitry Bahdanau and Kyunghyun Cho and Yoshua Bengio},
+      year={2016},
+      eprint={1409.0473},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## References
+* [parker.ngoc.huynh@gmail.com](parker.ngoc.huynh@gmail.com)
+* [https://www.linkedin.com/in/parkerhuynh/](https://www.linkedin.com/in/parkerhuynh/)
