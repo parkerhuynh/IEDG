@@ -62,7 +62,7 @@ After that, you run:
 
 ## References
 
-### Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation
+### Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation (2019)
 
 https://www.mdpi.com/1424-8220/19/6/1478\
 
@@ -76,7 +76,7 @@ https://www.mdpi.com/1424-8220/19/6/1478\
 }
 ```
 
-### Neural Machine Translation by Jointly Learning to Align and Translate
+### Neural Machine Translation by Jointly Learning to Align and Translate (2016)
 
 https://arxiv.org/abs/1409.0473
 
