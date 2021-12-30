@@ -4,7 +4,7 @@ import tensorflow as tf
 from config import data_config, model_config
 import pandas as pd
 from utils import tf_lower_and_split_punct, plot_wer, plot_accuracy
-from Attention_Model import  TrainTranslator, Translator, ShapeChecker
+from Attention_Model import  TrainTranslator, Translator
 from plot_keras_history import plot_history
 import matplotlib.pyplot as plt
 from loss import MaskedLoss
@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     #Train model
     start_time = time.time()
-    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[train_metrics, test_metrics])
+    training_history = train_translator.fit(training_ds.take(1), epochs=model_config["epoch"], callbacks=[train_metrics, test_metrics])
     training_time = time.time() - start_time
 
     #plot epochLosses
@@ -96,6 +96,10 @@ if __name__ == '__main__':
     log[str(logtime)]["data_config"] = data_config
     log[str(logtime)]["model_config"] = model_config
     log[str(logtime)]["trainning_time"] = training_time
+    log[str(logtime)]["WER_train"] = train_metrics.wer
+    log[str(logtime)]["WER_test"] = test_metrics.wer
+    log[str(logtime)]["ACC_train"] = train_metrics.accuracy
+    log[str(logtime)]["ACC_test"] = test_metrics.accuracy
     with open(model_config["save_dir"] + model_config["model_name"] +'/logs.txt', 'w') as outfile:
         json.dump(log, outfile)
     tf.saved_model.save(translator, model_config["save_dir"] +model_config["model_name"],
