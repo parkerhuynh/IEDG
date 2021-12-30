@@ -1,8 +1,16 @@
-# Getting Started with Create React App
+# Industry Engagement and Demonstrators Grant: IEDG
+Conversational Natural Language Interface for Smart Homes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ 
 
-## Available Scripts
+Smart homes are increasing in complexity and ability. Interacting with a smart home through natural language is increasingly important. The load is increasingly on the user to remember an increasingly large set of home assistant commands. This interaction can be improved by conversational systems that have a longer series of interactions with the user. The project will build a demonstration of a smart home which can be controlled by a natural language conversation system.
+
+The demonstration will show a user interacting with a smart home with a series of very complex conversations. Such as asking “What is the temperature in the living room”.  The system will need to understand this question, discover IoT services, then compose context queries to be to understand the context. The system may then offer options for improving the room temperature.
+
+To achieve this, there are a series of steps. These include, speech to text, text to CDQL. To implement this the student will need to create a GUI, use IoT technologies, NLP technologies, use ontologies, adapt existing middleware such as Dialogflow, and integrate with existing systems including CoaaS and Home Assistant. 
+
+The following steps aim to deploy a user interface for smarthome.
+## Build a text to CDQL
 
 In the project directory, you can run:
 
