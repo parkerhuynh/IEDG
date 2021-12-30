@@ -68,11 +68,17 @@ After that, you run:
 
 `
 @article{Hassani2019ContextDA,
+
   title={Context Definition and Query Language: Conceptual Specification, Implementation, and Evaluation},
+
   author={Alireza Hassani and Alexey Medvedev and Pari Delir Haghighi and Sea Ling and Arkady B. Zaslavsky and Prem Prakash Jayaraman},
+
   journal={Sensors (Basel, Switzerland)},
+
   year={2019},
+
   volume={19}
+
 }
 `
 
@@ -82,12 +88,19 @@ After that, you run:
 
 `
 @misc{bahdanau2016neural,
+
       title={Neural Machine Translation by Jointly Learning to Align and Translate}, 
+
       author={Dzmitry Bahdanau and Kyunghyun Cho and Yoshua Bengio},
+
       year={2016},
+
       eprint={1409.0473},
+
       archivePrefix={arXiv},
+
       primaryClass={cs.CL}
+      
 }
 `
 
