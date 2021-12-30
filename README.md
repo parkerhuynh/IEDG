@@ -10,7 +10,14 @@ The demonstration will show a user interacting with a smart home with a series o
 To achieve this, there are a series of steps. These include, speech to text, text to CDQL. To implement this the student will need to create a GUI, use IoT technologies, NLP technologies, use ontologies, adapt existing middleware such as Dialogflow, and integrate with existing systems including CoaaS and Home Assistant. 
 
 The following steps aim to deploy a user interface for smarthome.
+## Install
+
+Clone the repository.
+`pip install -r requirements.txt`
+
 ## Build a text to CDQL
+
+The purpose of this section is to crate a text-to-CDQL system.
 
 In the project directory, you can run:
 
