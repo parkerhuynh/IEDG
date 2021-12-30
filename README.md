@@ -13,7 +13,12 @@ The following steps aim to deploy a user interface for smarthome.
 ## Install
 
 Clone the repository.
+
 `pip install -r requirements.txt`
+
+**npm** is required to integrate the user interface. Depending on the operating system such as Windown, Linux, and Mac, the method to install **npm** can be found at the following link:
+
+https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 ## Build a text to CDQL
 
