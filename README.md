@@ -34,7 +34,7 @@ Data Generator aims to create the data to train and evaluate the model. You can 
 
 ![Text-to-CDQL model](images/attention.png)
 
-Before trainning the model, you should set the parameters of your model such as the number of hidden units, epoches, and learning rate in the file `config.py` in the folder named `text-to-CDQL`. To train the model, run:
+The model is created based on the attetion encoder-decoder RNN artchitecture. Before trainning the model, you should set the parameters of your model such as the number of hidden units, epoches, and learning rate in the file `config.py` in the folder named `text-to-CDQL`. To train the model, run:
 
 `python text-to-CDQL\training.py`
 
