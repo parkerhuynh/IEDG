@@ -26,7 +26,9 @@ The purpose of this section is to crate a text-to-CDQL system.
  
 ### Data Generator
 
-Data Generator aims to create the data to train and evaluate the model. You can directly download the pre-generated data from [here](https://github.com/parkerhuynh/IEDG/tree/main/text-to-CDQL/data). 
+Data Generator aims to create the data to train and evaluate the model. You can directly download the pre-generated data from [here](https://github.com/parkerhuynh/IEDG/tree/main/text-to-CDQL/data). If you want to create by yourself, you can edit the templates into the file named `data_templates.py` in the folder named `text-to-CDQL`. After that, you run the following code to generate the dataset:
+
+`python text-to-CDQL\data_generator.py`
 
 In the project directory, you can run:
 
