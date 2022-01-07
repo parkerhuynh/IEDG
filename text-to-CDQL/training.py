@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     #Train model
     start_time = time.time()
-    training_history = train_translator.fit(training_ds.take(1), epochs=model_config["epoch"], callbacks=[train_metrics, test_metrics])
+    training_history = train_translator.fit(training_ds, epochs=model_config["epoch"], callbacks=[train_metrics, test_metrics])
     training_time = time.time() - start_time
 
     #plot epochLosses
