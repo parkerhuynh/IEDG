@@ -11,5 +11,6 @@ model_config = {
     "epoch":5,
     "model_name":"2",
     "save_dir":"./text-to-CDQL/saved_model/translator",
-    "learning_rate": 0.0001
+    "learning_rate": 0.0001,
+    "attention": "Luong"
 }

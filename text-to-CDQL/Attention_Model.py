@@ -4,14 +4,7 @@ import typing
 from typing import Any, Tuple
 import tensorflow as tf
 import tensorflow_text as tf_text
-
-class BatchLogs(tf.keras.callbacks.Callback):
-    def __init__(self, key):
-        self.key = key
-        self.logs = []
-
-    def on_train_batch_end(self, n, logs):
-        self.logs.append(logs[self.key])
+from config import model_config
 
 class Encoder(tf.keras.layers.Layer):
     def __init__(self, input_vocab_size, embedding_dim, enc_units):
@@ -40,15 +33,31 @@ class Encoder(tf.keras.layers.Layer):
 class BahdanauAttention(tf.keras.layers.Layer):
     def __init__(self, units):
         super().__init__()
-        # For Eqn. (4), the  Bahdanau attention
         self.W1 = tf.keras.layers.Dense(units, use_bias=False)
         self.W2 = tf.keras.layers.Dense(units, use_bias=False)
         self.attention = tf.keras.layers.AdditiveAttention()
 
     def call(self, query, value, mask):
-        # From Eqn. (4), `W1@ht`.
         w1_query = self.W1(query)
-        # From Eqn. (4), `W2@hs`.
+        w2_key = self.W2(value)
+        query_mask = tf.ones(tf.shape(query)[:-1], dtype=bool)
+        value_mask = mask
+        context_vector, attention_weights = self.attention(
+            inputs = [w1_query, value, w2_key],
+            mask=[query_mask, value_mask],
+            return_attention_scores = True,
+        )
+        return context_vector, attention_weights
+
+class LuongAttention(tf.keras.layers.Layer):
+    def __init__(self, units):
+        super().__init__()
+        self.W1 = tf.keras.layers.Dense(units, use_bias=False)
+        self.W2 = tf.keras.layers.Dense(units, use_bias=False)
+        self.attention = tf.keras.layers.Attention()
+
+    def call(self, query, value, mask):
+        w1_query = self.W1(query)
         w2_key = self.W2(value)
         query_mask = tf.ones(tf.shape(query)[:-1], dtype=bool)
         value_mask = mask
@@ -80,8 +89,10 @@ class Decoder(tf.keras.layers.Layer):
                                     return_sequences=True,
                                     return_state=True,
                                     recurrent_initializer='glorot_uniform')
-
-        self.attention = BahdanauAttention(self.dec_units)
+        if model_config["attention"] == "Bahdanaua":
+            self.attention = BahdanauAttention(self.dec_units)
+        else:
+            self.attention = LuongAttention(self.dec_units)
         self.Wc = tf.keras.layers.Dense(dec_units, activation=tf.math.tanh,
                                         use_bias=False)
         self.fc = tf.keras.layers.Dense(self.output_vocab_size)
