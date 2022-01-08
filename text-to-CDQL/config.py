@@ -8,10 +8,9 @@ data_config = {
 model_config = {
     "embedding_dim":256,
     "hidden_units": 1024,
-    "epoch":3,
-    "model_name":"basic",
+    "epoch":100,
+    "model_name":"Bahdanau",
     "save_dir":"./text-to-CDQL/saved_model/translator",
     "learning_rate": 0.0001,
-    "attention": "Luong",
-    "luong_type_function": "general"
+    "attention": "Bahdanau",
 }
