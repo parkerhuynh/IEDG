@@ -52,28 +52,13 @@ class BahdanauAttention(tf.keras.layers.Layer):
 class LuongAttention(tf.keras.Model):
     def __init__(self, hidden_dim):
         super(LuongAttention, self).__init__()
-        self.attention_func = attention_func
-        if attention_func == 'general':
-            self.wa = tf.keras.layers.Dense(hidden_dim) 
-        elif attention_func == 'concat':
-            # Concat score function
-            self.wa = tf.keras.layers.Dense(hidden_dim, activation='tanh')
-            self.va = tf.keras.layers.Dense(1)
+        self.wa = tf.keras.layers.Dense(hidden_dim) 
 
-
-    def call(self,decoder_output,encoder_outputs):
-      if self.attention_func == 'dot':
-            score = tf.matmul(decoder_output, encoder_outputs, transpose_b=True)
-      elif self.attention_func == 'general':
-            score = tf.matmul(decoder_output, self.wa(encoder_outputs), transpose_b=True)
-      elif self.attention_func == 'concat':
-            decoder_output = tf.tile(decoder_output, [1, encoder_outputs.shape[1], 1])
-            score = self.va(self.wa(tf.concat((decoder_output, encoder_outputs), axis=-1)))
-            score = tf.transpose(score, [0, 2, 1])
-      alignment = tf.keras.activations.softmax(score, axis=-1) #(batch_size, 1, max_len)
-      context = tf.matmul(alignment, encoder_outputs)
-
-      return context, alignment
+    def call(self,query,value):
+        score = tf.matmul(query, self.wa(value), transpose_b=True)
+        attention_weights = tf.keras.activations.softmax(score, axis=-1)
+        context_vector = tf.matmul(attention_weights, value)
+        return context_vector, attention_weights
 
 class DecoderInput(typing.NamedTuple):
     new_tokens: Any
@@ -112,10 +97,14 @@ class Decoder(tf.keras.layers.Layer):
         if model_config["attention"] == None:
             logits = self.fc(rnn_output)
             attention_weights = None
-        else:
-            context_vector, attention_weights = self.attention(
-            query=rnn_output, value=inputs.enc_output, mask=inputs.mask)
+        elif model_config["attention"] == "Bahdanau":
+            context_vector, attention_weights = self.attention(query=rnn_output, value=inputs.enc_output, mask=inputs.mask)
             context_and_rnn_output = tf.concat([context_vector, rnn_output], axis=-1)
+            attention_vector = self.Wc(context_and_rnn_output)
+            logits = self.fc(attention_vector)
+        elif model_config["attention"] == "Luong":
+            context_vector, attention_weights = self.attention(query=rnn_output, value=inputs.enc_output)
+            context_and_rnn_output = tf.concat([context_vector,rnn_output], axis=-1)
             attention_vector = self.Wc(context_and_rnn_output)
             logits = self.fc(attention_vector)
         return DecoderOutput(logits, attention_weights), state
