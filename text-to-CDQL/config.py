@@ -12,5 +12,6 @@ model_config = {
     "model_name":"basic",
     "save_dir":"./text-to-CDQL/saved_model/translator",
     "learning_rate": 0.0001,
-    "attention": None
+    "attention": "Luong",
+    "luong_type_function": "general"
 }
