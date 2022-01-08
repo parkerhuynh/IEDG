@@ -81,7 +81,7 @@ class Decoder(tf.keras.layers.Layer):
                                     return_sequences=True,
                                     return_state=True,
                                     recurrent_initializer='glorot_uniform')
-        if model_config["attention"] == "Bahdanaua":
+        if model_config["attention"] == "Bahdanau":
             self.attention = BahdanauAttention(self.dec_units)
         elif model_config["attention"] == "Luong":
             self.attention = LuongAttention(self.dec_units)
