@@ -91,8 +91,10 @@ class Decoder(tf.keras.layers.Layer):
                                     recurrent_initializer='glorot_uniform')
         if model_config["attention"] == "Bahdanaua":
             self.attention = BahdanauAttention(self.dec_units)
-        else:
+        elif model_config["attention"] == "Luong":
             self.attention = LuongAttention(self.dec_units)
+        elif model_config["attention"] == None:
+            pass
         self.Wc = tf.keras.layers.Dense(dec_units, activation=tf.math.tanh,
                                         use_bias=False)
         self.fc = tf.keras.layers.Dense(self.output_vocab_size)
@@ -100,11 +102,15 @@ class Decoder(tf.keras.layers.Layer):
     def call(self,inputs: DecoderInput, state=None) -> Tuple[DecoderOutput, tf.Tensor]:
         vectors = self.embedding(inputs.new_tokens)
         rnn_output, state = self.gru(vectors, initial_state=state)
-        context_vector, attention_weights = self.attention(
+        if model_config["attention"] == None:
+            logits = self.fc(rnn_output)
+            attention_weights = None
+        else:
+            context_vector, attention_weights = self.attention(
             query=rnn_output, value=inputs.enc_output, mask=inputs.mask)
-        context_and_rnn_output = tf.concat([context_vector, rnn_output], axis=-1)
-        attention_vector = self.Wc(context_and_rnn_output)
-        logits = self.fc(attention_vector)
+            context_and_rnn_output = tf.concat([context_vector, rnn_output], axis=-1)
+            attention_vector = self.Wc(context_and_rnn_output)
+            logits = self.fc(attention_vector)
         return DecoderOutput(logits, attention_weights), state
 
 class TrainTranslator(tf.keras.Model):
@@ -139,8 +145,7 @@ class TrainTranslator(tf.keras.Model):
 
     def _train_step(self, inputs):
         input_text, target_text = inputs  
-        (input_tokens, input_mask,
-        target_tokens, target_mask) = self._preprocess(input_text, target_text)
+        (input_tokens, input_mask, target_tokens, target_mask) = self._preprocess(input_text, target_text)
         max_target_length = tf.shape(target_tokens)[1]
         with tf.GradientTape() as tape:
             enc_output, enc_state = self.encoder(input_tokens)
@@ -215,7 +220,8 @@ class Translator(tf.Module):
         dec_state = enc_state
         new_tokens = tf.fill([batch_size, 1], self.start_token)
         result_tokens = []
-        attention = []
+        if model_config["attention"] != None:
+            attention = []
         done = tf.zeros([batch_size, 1], dtype=tf.bool)
 
         for _ in range(max_length):
@@ -223,7 +229,8 @@ class Translator(tf.Module):
                                     enc_output=enc_output,
                                     mask=(input_tokens!=0))
             dec_result, dec_state = self.decoder(dec_input, state=dec_state)
-            attention.append(dec_result.attention_weights)
+            if model_config["attention"] != None:
+                attention.append(dec_result.attention_weights)
             new_tokens = self.sample(dec_result.logits, temperature)
             # If a sequence produces an `end_token`, set it `done`
             done = done | (new_tokens == self.end_token)
@@ -236,7 +243,7 @@ class Translator(tf.Module):
         # Convert the list of generates token ids to a list of strings.
         result_tokens = tf.concat(result_tokens, axis=-1)
         result_text = self.tokens_to_text(result_tokens)
-        if return_attention:
+        if return_attention and model_config["attention"] != None:
             attention_stack = tf.concat(attention, axis=1)
             return {'text': result_text, 'attention': attention_stack}
         else:
