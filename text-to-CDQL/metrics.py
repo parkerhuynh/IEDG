@@ -31,6 +31,7 @@ class Metrics(tf.keras.callbacks.Callback):
         else:
             dataset = self.dataset
             data_type = "Test"
+        data = data[:5]
         inputs = tf.constant(dataset["text"])
         outputs = list(dataset["query"])
         predictions = []
@@ -40,6 +41,7 @@ class Metrics(tf.keras.callbacks.Callback):
             tr = tr.numpy().decode()
             predictions.append(tr)
         random_id = randrange(data_config["test_sample"])
+        random_id = 1
         #Compute WER
         wer_score = wer(outputs, predictions)
         self.wer.append(wer_score)
