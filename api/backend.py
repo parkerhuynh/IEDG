@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 lower_entities= ["hasstate", "ison", "isin", "devicename", "statevalue"]
 upper_entities= ["hasState", "isOn", "isIn", "deviceName", "stateValue"]
-translator = tf.saved_model.load('text-to-CDQL/saved_model/translator')
+translator = tf.saved_model.load('text-to-CDQL/saved_model/translatorBahdanau')
 url = "http://206.12.91.26:8070/CASM-2.0.1/api/query"
 headers = {'Content-Type': 'text/plain'}
 
