@@ -54,7 +54,7 @@ function App() {
         setcdql(res["data"]["cdql"])
         resetInt = setTimeout(()=> {
           reset()
-        }, 5000)
+        }, 3000)
       })
     };
 
@@ -79,12 +79,12 @@ function App() {
         <Col xs="2"></Col>
         <Col xs="2">
           <Form>
-            <Form.Label style={{ height: '100px', "font-size":"30px"}}>Transcript</Form.Label>
+            <Form.Label style={{ height: '200px', "font-size":"40px"}}>Transcript</Form.Label>
           </Form>
         </Col>
         <Col>
           <Form>
-            <Form.Label>{text}</Form.Label>
+            <Form.Label style={{"font-size":"25px"}}>{text}</Form.Label>
           </Form>
         </Col>
         <Col xs="2"></Col>
@@ -93,12 +93,12 @@ function App() {
         <Col xs="2"></Col>
         <Col xs="2">
             <Form>
-              <Form.Label style={{ height: '100px', "font-size":"30px"}}>CDQL query</Form.Label>
+              <Form.Label style={{ height: '200px', "font-size":"40px"}}>CDQL query</Form.Label>
             </Form>
           </Col>
           <Col>
             <Form>
-              <Form.Label>{cdql}</Form.Label>
+              <Form.Label style={{"font-size":"25px"}} >{cdql}</Form.Label>
             </Form>
           </Col>
           <Col xs="2"></Col>
@@ -107,12 +107,12 @@ function App() {
         <Col xs="2"></Col>
         <Col xs="2">
           <Form>
-            <Form.Label style={{ height: '100px', "font-size":"30px"}}>Results</Form.Label>
+            <Form.Label style={{ height: '200px', "font-size":"40px"}}>Results</Form.Label>
           </Form>
         </Col>
         <Col>
           <Form>
-            <Form.Label>{results}</Form.Label>
+            <Form.Label style={{"font-size":"25px"}}>{results}</Form.Label>
           </Form>
         </Col>
       </Row>
