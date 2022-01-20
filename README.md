@@ -38,7 +38,7 @@ The model is created based on the attetion encoder-decoder RNN artchitecture. Be
 
 `python text-to-CDQL\training.py`
 
-You can also load the pre-trained model from [here](https://github.com/parkerhuynh/IEDG/tree/main/text-to-CDQL/saved_model/translator).
+You can also load the pre-trained model from [here](https://github.com/parkerhuynh/IEDG/tree/main/text-to-CDQL/saved_model/translatorBahdanau).
 
 ## IoT Data Generator
 
